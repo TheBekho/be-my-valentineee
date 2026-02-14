@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message for Tina ❤️</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff0f0;
+            overflow: hidden;
+            text-align: center;
+            color: #d63384;
+        }
+        #gif-container { height: 280px; margin-bottom: 20px; transition: all 0.5s ease; }
+        img { max-height: 100%; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        h1 { margin: 10px 0; font-size: 2rem; }
+        #personal-message { 
+            font-size: 1.2rem; 
+            color: #ff4d4d; 
+            margin-top: 15px; 
+            opacity: 0; 
+            transition: opacity 2s ease;
+            font-style: italic;
+        }
+        .buttons { position: relative; width: 300px; height: 120px; margin-top: 20px; }
+        button {
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        #yesBtn { 
+            background-color: #ff4d4d; 
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute;
+            left: 170px;
+            z-index: 10;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="gif-container">
+        <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIyeW9yZzRycXN6OHR6bm9yZzRycXN6OHR6bm9yZzRycXN6OHR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/qUIm5wu6LAAog/giphy.gif" alt="Puppy Eyes">
+    </div>
+
+    <h1 id="question">Tina, will you be my Valentine?</h1>
+    <p id="personal-message">I'm the luckiest person to have you my totooooo. Happy Valentine's Day! ❤️</p>
+
+    <div class="buttons">
+        <button id="yesBtn">YES!</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainGif = document.getElementById('main-gif');
+        const question = document.getElementById('question');
+        const message = document.getElementById('personal-message');
+
+        // The "Runaway" logic
+        const moveButton = () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevents clicking on mobile
+            moveButton();
+        });
+
+        // The "Success" logic
+        yesBtn.addEventListener('click', () => {
+            question.innerText = "Yay! I knew it! 😍";
+            message.style.opacity = "1";
+            mainGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIyeW9yZzRycXN6OHR6bm9yZzRycXN6OHR6bm9yZzRycXN6OHR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/108M2qNEp4nvW/giphy.gif"; 
+            noBtn.style.display = 'none';
+            yesBtn.style.animation = 'none';
+            
+            // Big Confetti burst
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#ff4d4d', '#ff0000', '#ffffff', '#ff85a2']
+            });
+        });
+    </script>
+</body>
+</html>
